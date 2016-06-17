@@ -39,6 +39,7 @@
     "react": "~15.1.0",
     "react-dom": "~15.1.0",
     "redux": "~3.5.2",
+    "redux-devtools": "~3.3.1",
     "stylelint": "~6.6.0",
     "stylelint-config-standard": "~9.0.0",
     "stylelint-config-suitcss": "~7.0.0",

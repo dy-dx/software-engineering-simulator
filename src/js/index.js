@@ -16,7 +16,7 @@ const dollarCounter = (state = 0, action) => {
       return state
   }
 }
-const store = createStore(dollarCounter)
+const store = createStore(dollarCounter, 0, window.devToolsExtension && window.devToolsExtension())
 
 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setUpdate
 const update = (delta) => (
