@@ -1,19 +1,14 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-export default class App extends React.Component {
+class App extends React.Component {
   static propTypes = {
-    dollars: React.PropTypes.number.isRequired,
-    onAdd: React.PropTypes.func.isRequired
+    dollars: PropTypes.number.isRequired,
+    onAddCode: PropTypes.func.isRequired
   }
 
   constructor (props) {
     super(props)
-
-    this.addCode = this.addCode.bind(this)
-  }
-
-  addCode () {
-    this.props.onAdd(1)
   }
 
   render () {
@@ -22,8 +17,20 @@ export default class App extends React.Component {
         <h1>
           Dollars:&nbsp;<span>{this.props.dollars}</span>
         </h1>
-        <button onClick={this.addCode}>write code</button>
+        <button onClick={this.props.onAddCode}>write code</button>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  dollars: state.dollars
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onAddCode: (id) => {
+    dispatch({ type: 'ADD_DOLLARS', payload: 1 })
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

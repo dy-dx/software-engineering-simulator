@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import Animator from './components/Animator'
 import App from './components/App'
@@ -8,32 +9,34 @@ const TIMESTEP = 1000 / 60 // https://icecreamyou.github.io/MainLoop.js/docs/#!/
 const MAX_FPS = Infinity
 const animate = new Animator(TIMESTEP, MAX_FPS)
 
-const dollarCounter = (state = 0, action) => {
+const initialState = {
+  dollars: 0
+}
+
+const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_DOLLARS':
-      return state + action.payload
+      return { ...state, dollars: state.dollars + action.payload }
     default:
       return state
   }
 }
-const store = createStore(dollarCounter, 0, window.devToolsExtension && window.devToolsExtension())
+const store = createStore(reducer, initialState, window.devToolsExtension && window.devToolsExtension())
 
 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setUpdate
-const update = (delta) => (
-  // ??? what is this ??? https://github.com/ThomWright/react-mainloop
-  {
-    context: {},
-    props: {
-      dollars: store.getState()
-    }
-  }
-)
+
+// const update = (delta) => (
+//   // ??? what is this ??? https://github.com/ThomWright/react-mainloop
+//   {
+//     context: {},
+//     props: {
+//       dollars: store.getState()
+//     }
+//   }
+// )
+const update = (delta) => ({})
 
 const MyAnimatedComponent = animate(App, update)
-const elem = React.createElement(MyAnimatedComponent, {
-  dollars: store.getState(),
-  onAdd: (diff) => {
-    store.dispatch({ type: 'ADD_DOLLARS', payload: diff })
-  }
-})
-ReactDOM.render(elem, document.querySelector('#main'))
+const elem = React.createElement(MyAnimatedComponent)
+const root = React.createElement(Provider, { store }, elem)
+ReactDOM.render(root, document.querySelector('#main'))
