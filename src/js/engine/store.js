@@ -1,6 +1,15 @@
+/* @flow */
 import { createStore } from 'redux'
 
-const initialState = {
+type State = {
+  dollars: number,
+  keystrokes: number,
+  workers: {
+    engineers: number
+  }
+};
+
+const initialState: State = {
   dollars: 0,
   keystrokes: 0,
   workers: {
@@ -8,7 +17,7 @@ const initialState = {
   }
 }
 
-const reducer = (state, action) => {
+const reducer = (state: State, action): State => {
   switch (action.type) {
     case 'ADD_DOLLARS':
       return {

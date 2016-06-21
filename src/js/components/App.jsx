@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { addKeystrokes, addEngineers } from '../engine/actioncreators'
@@ -8,7 +9,7 @@ class App extends React.Component {
     engineers: PropTypes.number.isRequired,
     onAddCode: PropTypes.func.isRequired,
     onAddEngineer: PropTypes.func.isRequired
-  }
+  };
 
   constructor (props) {
     super(props)

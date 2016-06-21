@@ -1,3 +1,4 @@
+/* @flow */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -6,14 +7,14 @@ import Animator from './components/Animator'
 import App from './components/App'
 import Game from './engine/Game'
 
-const TIMESTEP = 1000 / 60 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setSimulationTimestep
-const MAX_FPS = Infinity
+const TIMESTEP: number = 1000 / 60 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setSimulationTimestep
+const MAX_FPS: number = Infinity
 const animate = new Animator(TIMESTEP, MAX_FPS)
 const game = new Game()
 game.setStore(store)
 
 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setUpdate
-const update = (delta) => {
+const update = (delta: number) => {
   game.update(delta)
 //   // ??? what is this ??? https://github.com/ThomWright/react-mainloop
 //   {

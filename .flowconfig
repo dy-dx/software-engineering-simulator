@@ -1,0 +1,15 @@
+[ignore]
+<PROJECT_ROOT>/dist/.*
+<PROJECT_ROOT>/node_modules/fbjs/.*
+[include]
+
+[libs]
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+esproposal.export_star_as=enable
+esproposal.decorators=ignore
+
+[version]
+^0.27.0

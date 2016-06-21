@@ -1,19 +1,21 @@
+/* @flow */
 import { addDollars } from './actioncreators'
 const engineerValue = 10 // fixme
 
 class Game {
-  elapsed = 0
+  store: any;
+  elapsed: number = 0;
 
-  setStore (store) {
+  setStore (store: any): void {
     this.store = store
   }
 
-  runUpdate () {
+  runUpdate (): void {
     const engineerCount = this.store.getState().workers.engineers
     this.store.dispatch(addDollars(engineerCount * engineerValue))
   }
 
-  update (delta) {
+  update (delta: number): void {
     // update stuff once per second
     const updatesDue = Math.floor((this.elapsed + delta) / 1000) - Math.floor(this.elapsed / 1000)
     this.elapsed += delta
