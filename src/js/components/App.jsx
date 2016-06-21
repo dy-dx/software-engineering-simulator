@@ -1,10 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { addKeystrokes, addEngineers } from '../engine/actioncreators'
 
 class App extends React.Component {
   static propTypes = {
     dollars: PropTypes.number.isRequired,
-    onAddCode: PropTypes.func.isRequired
+    engineers: PropTypes.number.isRequired,
+    onAddCode: PropTypes.func.isRequired,
+    onAddEngineer: PropTypes.func.isRequired
   }
 
   constructor (props) {
@@ -18,18 +21,26 @@ class App extends React.Component {
           Dollars:&nbsp;<span>{this.props.dollars}</span>
         </h1>
         <button onClick={this.props.onAddCode}>write code</button>
+        <h1>
+          Engineers:&nbsp;<span>{this.props.engineers}</span>
+        </h1>
+        <button onClick={this.props.onAddEngineer}>hire engineer</button>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  dollars: state.dollars
+  dollars: state.dollars,
+  engineers: state.workers.engineers
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddCode: (id) => {
-    dispatch({ type: 'ADD_DOLLARS', payload: 1 })
+  onAddCode: () => {
+    dispatch(addKeystrokes(1))
+  },
+  onAddEngineer: () => {
+    dispatch(addEngineers(1))
   }
 })
 

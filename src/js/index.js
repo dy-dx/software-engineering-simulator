@@ -1,31 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import store from './engine/store'
 import Animator from './components/Animator'
 import App from './components/App'
+import Game from './engine/Game'
 
 const TIMESTEP = 1000 / 60 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setSimulationTimestep
 const MAX_FPS = Infinity
 const animate = new Animator(TIMESTEP, MAX_FPS)
-
-const initialState = {
-  dollars: 0
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_DOLLARS':
-      return { ...state, dollars: state.dollars + action.payload }
-    default:
-      return state
-  }
-}
-const store = createStore(reducer, initialState, window.devToolsExtension && window.devToolsExtension())
+const game = new Game()
+game.setStore(store)
 
 // https://icecreamyou.github.io/MainLoop.js/docs/#!/api/MainLoop-method-setUpdate
-
-// const update = (delta) => (
+const update = (delta) => {
+  game.update(delta)
 //   // ??? what is this ??? https://github.com/ThomWright/react-mainloop
 //   {
 //     context: {},
@@ -34,7 +23,8 @@ const store = createStore(reducer, initialState, window.devToolsExtension && win
 //     }
 //   }
 // )
-const update = (delta) => ({})
+  return {}
+}
 
 const MyAnimatedComponent = animate(App, update)
 const elem = React.createElement(MyAnimatedComponent)
